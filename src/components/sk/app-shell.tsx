@@ -65,13 +65,13 @@ function NavLink({
   label: string;
   icon: typeof Home;
   collapsed: boolean;
-  exact?: boolean;
-  onNavigate?: () => void;
+  exact?: boolean | undefined;
+  onNavigate?: (() => void) | undefined;
 }) {
   return (
     <Link
       to={to}
-      activeOptions={{ exact }}
+      activeOptions={{ exact: exact === true }}
       onClick={onNavigate}
       title={collapsed ? label : undefined}
       className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/75 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[status=active]:bg-sidebar-accent data-[status=active]:text-sidebar-accent-foreground"
@@ -298,7 +298,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <main className="min-w-0 flex-1 px-4 py-6 md:px-6 lg:px-8">{children}</main>
       </div>
 
-      <CommandDialog open={commandOpen} onOpenChange={setCommandOpen} title="Ask SK AI">
+      <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
         <CommandInput placeholder="What would you like to accomplish?" />
         <CommandList>
           <CommandEmpty>No matching actions.</CommandEmpty>
