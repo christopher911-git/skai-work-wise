@@ -12,9 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppActivityRouteImport } from './routes/app.activity'
 import { Route as AppAssistantRouteImport } from './routes/app.assistant'
 import { Route as AppEmailRouteImport } from './routes/app.email'
+import { Route as AppFavoritesRouteImport } from './routes/app.favorites'
 import { Route as AppMeetingsRouteImport } from './routes/app.meetings'
+import { Route as AppSavedRouteImport } from './routes/app.saved'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,6 +34,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppActivityRoute = AppActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppAssistantRoute = AppAssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
@@ -41,49 +49,87 @@ const AppEmailRoute = AppEmailRouteImport.update({
   path: '/email',
   getParentRoute: () => AppRoute,
 } as any)
+const AppFavoritesRoute = AppFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppMeetingsRoute = AppMeetingsRouteImport.update({
   id: '/meetings',
   path: '/meetings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSavedRoute = AppSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
   getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/activity': typeof AppActivityRoute
   '/app/assistant': typeof AppAssistantRoute
   '/app/email': typeof AppEmailRoute
+  '/app/favorites': typeof AppFavoritesRoute
   '/app/meetings': typeof AppMeetingsRoute
+  '/app/saved': typeof AppSavedRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/activity': typeof AppActivityRoute
   '/app/assistant': typeof AppAssistantRoute
   '/app/email': typeof AppEmailRoute
+  '/app/favorites': typeof AppFavoritesRoute
   '/app/meetings': typeof AppMeetingsRoute
+  '/app/saved': typeof AppSavedRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/activity': typeof AppActivityRoute
   '/app/assistant': typeof AppAssistantRoute
   '/app/email': typeof AppEmailRoute
+  '/app/favorites': typeof AppFavoritesRoute
   '/app/meetings': typeof AppMeetingsRoute
+  '/app/saved': typeof AppSavedRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/app' | '/app/assistant' | '/app/email' | '/app/meetings' | '/app/'
+    | '/'
+    | '/app'
+    | '/app/activity'
+    | '/app/assistant'
+    | '/app/email'
+    | '/app/favorites'
+    | '/app/meetings'
+    | '/app/saved'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/assistant' | '/app/email' | '/app/meetings' | '/app'
+  to:
+    | '/'
+    | '/app/activity'
+    | '/app/assistant'
+    | '/app/email'
+    | '/app/favorites'
+    | '/app/meetings'
+    | '/app/saved'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/app/activity'
     | '/app/assistant'
     | '/app/email'
+    | '/app/favorites'
     | '/app/meetings'
+    | '/app/saved'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -115,6 +161,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/activity': {
+      id: '/app/activity'
+      path: '/activity'
+      fullPath: '/app/activity'
+      preLoaderRoute: typeof AppActivityRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/assistant': {
       id: '/app/assistant'
       path: '/assistant'
@@ -129,6 +182,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEmailRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/favorites': {
+      id: '/app/favorites'
+      path: '/favorites'
+      fullPath: '/app/favorites'
+      preLoaderRoute: typeof AppFavoritesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/meetings': {
       id: '/app/meetings'
       path: '/meetings'
@@ -136,20 +196,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppMeetingsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/saved': {
+      id: '/app/saved'
+      path: '/saved'
+      fullPath: '/app/saved'
+      preLoaderRoute: typeof AppSavedRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppActivityRoute: typeof AppActivityRoute
   AppAssistantRoute: typeof AppAssistantRoute
   AppEmailRoute: typeof AppEmailRoute
+  AppFavoritesRoute: typeof AppFavoritesRoute
   AppMeetingsRoute: typeof AppMeetingsRoute
+  AppSavedRoute: typeof AppSavedRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppActivityRoute: AppActivityRoute,
   AppAssistantRoute: AppAssistantRoute,
   AppEmailRoute: AppEmailRoute,
+  AppFavoritesRoute: AppFavoritesRoute,
   AppMeetingsRoute: AppMeetingsRoute,
+  AppSavedRoute: AppSavedRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
